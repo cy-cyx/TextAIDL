@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.textaidl.been.Data;
 import com.android.textaidl.Interface;
 import com.android.textaidl.LogTextView;
 import com.android.textaidl.R;
@@ -63,7 +64,7 @@ public class ClientActivity extends AppCompatActivity {
         }
     }
 
-    public void printService(View view) {
+    public void onPrintService(View view) {
         try {
             if (intarface != null) {
                 String sting = intarface.getSting();
@@ -71,6 +72,19 @@ public class ClientActivity extends AppCompatActivity {
             }
         } catch (RemoteException e) {
             logTextView.writeLog("服务已经断开");
+        }
+    }
+
+    private Data data = new Data("1");
+
+    public void onTextData(View view) {
+        try {
+            if (intarface != null) {
+                intarface.upDataData(data);
+                logTextView.writeLog("data" + data.getData());
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 }
