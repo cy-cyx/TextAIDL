@@ -21,6 +21,10 @@
         <activity android:name=".server.ServerActivity" />
         <activity android:name=".client.ClientActivity" />
 
+        <activity
+            android:name=".BigFileBinderActivity"
+            android:process=".pic" />
+
         <service
             android:name=".AIDLServer"
             android:exported="true" />

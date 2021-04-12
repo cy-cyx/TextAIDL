@@ -28,14 +28,26 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="打印服务包名"
-            android:onClick="onPrintService"/>
+            android:onClick="onPrintService"
+            android:text="打印服务包名" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试tag"
-            android:onClick="onTextData"/>
+            android:onClick="onTextData"
+            android:text="测试tag" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onBitmapTransaction"
+            android:text="跨进程传图片" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跨进程传图片"
+            android:onClick="onBitmapActivity"/>
     </LinearLayout>
 
     <com.android.textaidl.LogTextView

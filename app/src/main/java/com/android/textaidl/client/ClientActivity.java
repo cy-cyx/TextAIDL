@@ -3,16 +3,21 @@ package com.android.textaidl.client;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.textaidl.been.Data;
+import com.android.textaidl.BigFileBinderActivity;
 import com.android.textaidl.Interface;
+import com.android.textaidl.PicGet;
+import com.android.textaidl.been.Data;
 import com.android.textaidl.LogTextView;
 import com.android.textaidl.R;
 
@@ -47,6 +52,8 @@ public class ClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client);
         logTextView = findViewById(R.id.ltv_log);
         logTextView.writeLog(getPackageName());
+
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.img);
     }
 
     public void onConnection(View view) {
@@ -86,5 +93,35 @@ public class ClientActivity extends AppCompatActivity {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    private Bitmap bm;
+
+    public void onBitmapTransaction(View view) {
+        try {
+            if (intarface != null) {
+
+                Log.d("xx", "准备跨进程传的" + bm.getWidth() + ":" + bm.getHeight() + "time:" + System.currentTimeMillis());
+                intarface.getBitmap(bm);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onBitmapActivity(View view) {
+        Intent intent = new Intent(this, BigFileBinderActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBinder("xx", new PicGet.Stub() {
+            @Override
+            public Bitmap getBitmap() {
+                return bm;
+            }
+        });
+        intent.putExtra("xx", bundle);
+
+        // 不可用这种方式
+        /*intent.putExtra("bm", bm);*/
+        startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.android.textaidl;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
@@ -57,8 +58,9 @@ public class AIDLServer extends Service {
         }
 
         @Override
-        public void getBitmap(Bitmap bm) throws RemoteException {
-
+        public void getBitmap(final Bitmap bm) throws RemoteException {
+            Log.d("xx", "跨进程传过来的" + bm.getWidth() + ":" + bm.getHeight() + "time:" + System.currentTimeMillis());
+            bm.recycle();
         }
     }
 }
